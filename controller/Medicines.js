@@ -17,7 +17,7 @@ export const addMedicine = async (req, res) => {
             });
         }
 
-        const { namaObat, deskripsi, stok, harga } = req.body;
+        const { namaObat, deskripsi, stok, harga, penyakit } = req.body;
         const file = req.file;
 
         // Validasi apakah nama obat sudah ada untuk user yang sedang login
@@ -74,6 +74,7 @@ export const addMedicine = async (req, res) => {
                 deskripsi,
                 stok,
                 harga,
+                penyakit,
                 gambar: gambarName,
                 url,
                 storeuserId: user.id // Simpan storeuserId
@@ -120,6 +121,7 @@ export const getMedicines = async (req, res) => {
 
         res.status(200).json({
             status: 'success',
+            message: "Berhasil memuat data obat",
             medicines
         });
     } catch (error) {
@@ -206,7 +208,7 @@ export const updateMedicine = async (req, res) => {
         }
 
         const { id } = req.params;
-        const { namaObat, deskripsi, stok, harga } = req.body;
+        const { namaObat, deskripsi, stok, harga, penyakit } = req.body;
 
         const medicine = await Medicines.findOne({
             where: {
@@ -267,6 +269,7 @@ export const updateMedicine = async (req, res) => {
                         deskripsi,
                         stok,
                         harga,
+                        penyakit,
                         gambar: gambarName,
                         url
                     }, {
@@ -278,7 +281,10 @@ export const updateMedicine = async (req, res) => {
 
                     res.status(200).json({
                         status: 'success',
-                        message: 'Data obat berhasil diperbarui'
+                        message: 'Data obat berhasil diperbarui',
+                        data:{
+                            namaObat, deskripsi, penyakit, harga, stok, gambar, url
+                        }
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -294,7 +300,8 @@ export const updateMedicine = async (req, res) => {
                     namaObat,
                     deskripsi,
                     stok,
-                    harga
+                    harga,
+                    penyakit
                 }, {
                     where: {
                         id: id,
@@ -304,7 +311,10 @@ export const updateMedicine = async (req, res) => {
 
                 res.status(200).json({
                     status: 'success',
-                    message: 'Data obat berhasil diperbarui'
+                    message: 'Data obat berhasil diperbarui',
+                    data:{
+                        namaObat, deskripsi, penyakit, harga, stok
+                    }
                 });
             } catch (error) {
                 console.log(error.message);

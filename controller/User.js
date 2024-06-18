@@ -227,7 +227,7 @@ export const loginFarmer = async (req, res) => {
         const namaLengkap = user[0].namaLengkap
         const email = user[0].email
         const accessToken = jwt.sign({userId, namaLengkap, email}, process.env.ACCESS_TOKEN, {
-            expiresIn: '20s'
+            expiresIn: '1h'
         })
         const refreshToken = jwt.sign({userId, namaLengkap, email}, process.env.REFRESH_TOKEN, {
             expiresIn: '1d'
@@ -274,7 +274,7 @@ export const loginStore = async (req, res) => {
         const alamat = user[0].alamat
         const noHp = user[0].noHp
         const accessToken = jwt.sign({userId, namaToko, email}, process.env.ACCESS_TOKEN, {
-            expiresIn: '20s'
+            expiresIn: '1h'
         })
         const refreshToken = jwt.sign({userId, namaToko, email}, process.env.REFRESH_TOKEN, {
             expiresIn: '1d'
